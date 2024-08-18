@@ -1,0 +1,182 @@
+{% extends "blog/index.html" %}
+
+{% block body %}
+
+<style>
+    /* styles.css */
+
+
+#profile{
+    width: 70%;
+}
+.back-button{
+    display: flex;
+    /* margin: 5px; */
+    font-size: 40px;
+}
+
+#profile-img-a{
+    height: 20%;
+}
+
+
+.blog-list {
+    /* display: flex; */
+    flex-wrap: wrap;
+}
+
+.blog-box {
+    border: 3px solid #ddd;
+    border-radius: 20px; 
+    background-color: rgb(184, 228, 246);
+    padding: 15px;
+    margin: 15px;
+    width: 95%;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: box-shadow 0.1s;
+}
+
+.blog-box:hover {
+       
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.blog-meta {
+    display: flex;
+    justify-content:space-around;
+    margin-top: 10px;
+}
+
+.blog-meta span {
+    margin-right: 40px;
+}
+
+.blog-detail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.blog-detail h1 {
+    margin-bottom: 20px;
+}
+
+.blog-content {
+    margin-top: 20px;
+    line-height: 1.6;
+}
+.blog-details{
+    display: flex;
+    text-align: center;
+    background-color: rgb(187, 254, 179);
+    padding: 8px;
+    margin-right: 0%;
+    border-radius: 10px;
+    text-decoration: none;
+}
+#blog-action{
+    background-color: rgb(255, 140, 140);
+    border: 3px solid black;
+    /* margin-right: 1%; */
+    /* text-decoration: none;
+    text-align: center;
+    margin: 5px;
+    padding: 5px; */
+}
+#blog-action:hover{
+    background-color: rgb(123, 241, 221);
+}
+#blog-action{
+    background-color: rgb(255, 140, 140);
+    border: 3px solid black;
+}
+#blog-action:hover{
+    background-color: rgb(123, 241, 221);
+}
+form.blog-search{
+    display: flex;
+    justify-content:space-around;
+}
+.blog{
+    display: flex;
+
+    background-color: rgb(187, 254, 179);
+    
+    width: 40%;
+}
+.search-btn:hover{
+    background-color: blue;
+}
+button:hover{
+background-color: rgb(184, 228, 246);
+}
+.other-blog{
+    display:grid;
+    border: 2px solid black;
+    padding: 20px;
+    margin: 5px;
+}
+</style>
+
+
+<div class="profile-card" id="profile">
+    <button class="back-button" onclick="window.location.href='/'">←</button>
+    <a id="profile-img-a" href="">
+        <img id="profile-img" src="/static/images/avtar.jpg"  alt="Blogger Image">
+    </a>
+    <div class="profile-info">
+        <h2 class="name">{{ user.first_name }} {{ user.last_name }}</h2>
+        <div class="rating">
+            <span>Rating: </span>
+            <span class="stars" id="star-rating">★★★★☆</span>
+        </div>
+        <p class="email">{{ user.email }}</p>
+        <p>Number of Blogs: {{ blogs_count }}</p>
+        <br>
+        <form class="blog-search" method="GET" action="/"  >
+            <div class="blog">
+            <input   class="search_input" type="text" class="form-control" name="search" id="exampleFormControlInput1" placeholder="Enter Bloge Title">
+            <button style="width: 200px; height: 73%; margin-top: 4px;" class="search_btn"  type="submit" >Search</button>
+        </div>
+          </form>
+
+
+
+          <div class="blogs"> 
+            <h1>All Blogs</h1>
+            
+                {% for blog in blogs %}
+                <div class="blog-box" onclick="location.href='/all-detailed-blog/{{blog.id}}'">
+                    <h2>{{ blog.title }}</h2>
+                    <p>{{ blog.content|truncatewords:50 }}</p>
+                    <div class="blog-meta">
+                        <span class="blog-details" >Rating: ★★★★☆</span>
+                        <span class="blog-details" >Views: {{ blog.views }}</span>
+                        <span class="blog-details" >Date: {{ blog.created_at|date:"DATETIME_FORMAT" }}</span>
+                        <span class="blog-details" >Last Updated on : {{ blog.created_at|date:"DATETIME_FORMAT" }}</span>
+                        <a href="/delete-blog/{{blog.id}}" class="blog-details" id="blog-action" >Delete</a>
+                        <a href="/other-blogger/{{blog.author.user.pk}}/{{blog.id}}" class="blog-details" id="blog-action" >By : {{blog.author.user.first_name}} {{blog.author.user.last_name}}</a>
+                        
+                        
+                    </div>
+                    
+                </div>
+                {% endfor %}
+        </div> 
+
+        
+        
+        </div>
+    </div>
+
+
+
+
+
+     
+</div>
+
+
+{% endblock body %}

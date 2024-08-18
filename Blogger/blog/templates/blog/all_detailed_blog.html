@@ -1,0 +1,130 @@
+{% extends "blog/index.html" %}
+
+{% block body %}
+
+<style>
+
+.blog-container {
+    max-width: 80%;
+    width: 70%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    height: 100%;
+}
+
+.blog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    font-size: 20px;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #4f93bd;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+.blog-header h1 {
+    flex-grow: 1;
+    margin-left: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.blog-content {
+    line-height: 1.6;
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.blog-footer {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.update-button {
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #4f93bd;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.update-button:hover {
+    background-color: #0056b3;
+}
+.star-rating {
+            direction: rtl;
+            display: inline-block;
+        }
+
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+
+        .star-rating label {
+            font-size: 2rem;
+            color: lightgray;
+            cursor: pointer;
+        }
+
+        .star-rating input[type="radio"]:checked ~ label {
+            color: gold;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: gold;
+        }
+</style>
+
+<div class="blog-container">
+    <div class="blog-header">
+        <button class="back-button" onclick="window.location.href='/'">←</button>
+        <h1>{{ blog.title }}</h1>
+    </div>
+    <div class="blog-content">
+        <p>{{ blog.content }}</p>
+    </div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="star-rating">
+            <input type="radio" id="star5" name="rating" value="5">
+            <label for="star5" title="5 stars">&#9733;</label>
+
+            <input type="radio" id="star4" name="rating" value="4">
+            <label for="star4" title="4 stars">&#9733;</label>
+
+            <input type="radio" id="star3" name="rating" value="3">
+            <label for="star3" title="3 stars">&#9733;</label>
+
+            <input type="radio" id="star2" name="rating" value="2">
+            <label for="star2" title="2 stars">&#9733;</label>
+
+            <input type="radio" id="star1" name="rating" value="1">
+            <label for="star1" title="1 star">&#9733;</label>
+        </div>
+   
+        <div>
+            <button type="submit">Submit Review</button>
+        </div>
+    </form>
+</div>
+
+{% endblock body %}

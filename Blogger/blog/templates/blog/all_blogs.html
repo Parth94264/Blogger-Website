@@ -1,0 +1,98 @@
+{% extends "blog/index.html" %}
+{% block title %}
+          All Blogs
+{% endblock title %}
+
+{% block body %}
+{% load static %}
+<style>
+/* style1.css */
+.blog-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.blog-box {
+    border: 3px solid #ddd;
+    border-radius: 20px; 
+    background-color: rgb(184, 228, 246);
+    padding: 15px;
+    margin: 15px;
+    width: 95%;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: box-shadow 0.1s;
+}
+
+.blog-box:hover {
+       
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.blog-meta {
+    display: flex;
+    justify-content:flex-start;
+    margin-top: 10px;
+}
+
+.blog-meta span {
+    margin-right: 100px;
+}
+
+.blog-detail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.blog-detail h1 {
+    margin-bottom: 20px;
+}
+
+.blog-content {
+    margin-top: 20px;
+    line-height: 1.6;
+}
+.blog-details{
+    display: flex;
+    text-align: center;
+    background-color: rgb(187, 254, 179);
+    padding: 8px;
+    margin-right: 5%;
+    border-radius: 10px;
+    text-decoration: none;
+}
+#blog-action{
+    background-color: rgb(255, 140, 140);
+    border: 3px solid black;
+    /* text-decoration: none;
+    text-align: center;
+    margin: 5px;
+    padding: 5px; */
+}
+#blog-action:hover{
+    background-color: rgb(123, 241, 221);
+}
+
+</style>
+    <div class="blogs"> 
+        <h1>BLOGS</h1>
+            {% for blog in blogs %}
+            <div class="blog-box" onclick="location.href=''">
+                <h2>{{ blog.title }}</h2>
+                <p>{{ blog.content|truncatewords:50 }}</p>
+                <div class="blog-meta">
+                    <span class="blog-details" >Rating: ★★★★☆</span>
+                    <span class="blog-details" >Views: {{ blog.views }}</span>
+                    <span class="blog-details" >Date: {{ blog.created_at|date:"DATETIME_FORMAT" }}</span>
+                    <a href="/delete-blog/{{blog.id}}" class="blog-details" id="blog-action" >Delete</a>
+                    <!-- <a href="" class="blog-details" id="blog-action" >Update</a> -->
+                    
+                    
+                </div>
+                
+            </div>
+            {% endfor %}
+    </div>
+{% endblock body %}
