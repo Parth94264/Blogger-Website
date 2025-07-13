@@ -1,0 +1,113 @@
+{% extends "blog/index.html" %}
+{% block title %}
+    All Blogs
+{% endblock title %}
+
+{% block body %}
+{% load static %}
+<style>
+/* style1.css */
+
+body {
+    background-color: #faf0e6; /* Light beige background */
+    color: #8b4513; /* Rich brown text color */
+    font-family: Arial, sans-serif;
+}
+
+.blog-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.blog-box {
+    border: 3px solid #ddd; /* Light gray border */
+    border-radius: 20px; 
+    background-color: #b8e4f6; /* Light blue background */
+    padding: 15px;
+    margin: 15px;
+    width: 95%;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.blog-box:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-color: #e6f7ff; /* Slightly lighter blue on hover */
+}
+
+.blog-meta {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.blog-meta span {
+    margin-right: 20px;
+}
+
+.blog-detail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd; /* Light gray border */
+    background-color: #fff; /* White background */
+    border-radius: 10px;
+}
+
+.blog-detail h1 {
+    margin-bottom: 20px;
+    color: #8b4513; /* Rich brown text color */
+}
+
+.blog-content {
+    margin-top: 20px;
+    line-height: 1.6;
+}
+
+.blog-details {
+    display: flex;
+    text-align: center;
+    background-color: #bbfeb3; /* Light green background */
+    padding: 8px;
+    margin-right: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #8b4513; /* Rich brown text color */
+}
+
+#blog-action {
+    background-color: #8b4513; /* Rich brown */
+    border: 3px solid #ddd; /* Light gray border */
+    color: #fff; /* White text color */
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#blog-action:hover {
+    background-color: #5a2d0c; /* Darker brown */
+    color: #fff; /* White text color */
+}
+</style>
+
+<div class="blogs"> 
+    <h1>BLOGS</h1>
+    {% for blog in blogs %}
+    <div class="blog-box" onclick="location.href='/all-detailed-blog/{{ blog.id }}'">
+        <h2>{{ blog.title }}</h2>
+        <p>{{ blog.content|truncatewords:50|linebreaksbr }}</p>
+        <div class="blog-meta">
+            <span class="blog-details">Rating: ★★★★☆</span>
+            <span class="blog-details">Views: {{ blog.views }}</span>
+            <span class="blog-details">Date: {{ blog.created_at|date:"DATETIME_FORMAT" }}</span>
+            
+            <a href="/delete-blog/{{ blog.id }}" class="blog-details" id="blog-action">Delete</a>
+            <!-- <a href="/update-blog/{{ blog.id }}" class="blog-details" id="blog-action">Update</a> -->
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock body %}

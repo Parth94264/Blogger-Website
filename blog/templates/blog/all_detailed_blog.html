@@ -1,0 +1,163 @@
+{% extends "blog/index.html" %}
+
+{% block body %}
+
+<style>
+/* Updated CSS with new color scheme */
+
+.blog-container {
+    max-width: 80%;
+    width: 70%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #ddd; /* Light gray border */
+    border-radius: 10px;
+    background-color: #faf0e6; /* Light beige background */
+    height: 100%;
+}
+
+.blog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    font-size: 20px;
+    padding: 10px 20px;
+    color: #fff; /* White text */
+    background-color: #8b4513; /* Rich brown background */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #5a2d0c; /* Darker brown on hover */
+}
+
+.blog-header h1 {
+    flex-grow: 1;
+    margin-left: 20px;
+    font-size: 24px;
+    color: #8b4513; /* Rich brown text */
+}
+
+.blog-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.blog-content {
+    line-height: 1.6;
+    font-size: 18px;
+    color: #555; /* Slightly darker gray text */
+    margin-bottom: 20px;
+    white-space: pre-wrap; /* Ensures that white spaces and line breaks are preserved */
+}
+
+.blog-footer {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.update-button {
+    padding: 10px 20px;
+    color: #fff; /* White text */
+    background-color: #8b4513; /* Rich brown background */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.update-button:hover {
+    background-color: #5a2d0c; /* Darker brown on hover */
+}
+
+.star-rating {
+    direction: rtl;
+    display: inline-block;
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 2rem;
+    color: lightgray;
+    cursor: pointer;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+    color: gold; /* Gold for checked stars */
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: gold; /* Gold on hover */
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #ffcc33; /* Bright golden yellow */
+    color: #8b4513; /* Rich brown text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #e6b800; /* Deeper yellow on hover */
+    color: #fff; /* White text on hover */
+}
+</style>
+
+<div class="blog-container">
+    <div class="blog-header">
+        <button class="back-button" onclick="window.location.href='/'">←</button>
+        <h1>{{ blog.title }}</h1>
+    </div>
+
+    <!-- Display the uploaded image, if available -->
+    {% if blog.image %}
+        <img src="{{ blog.image.url }}" alt="Blog Image" class="blog-image">
+    {% endif %}
+    
+    <div class="blog-content">
+        {{ blog.content|linebreaksbr }}
+    </div>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="star-rating">
+            <input type="radio" id="star5" name="rating" value="5">
+            <label for="star5" title="5 stars">&#9733;</label>
+
+            <input type="radio" id="star4" name="rating" value="4">
+            <label for="star4" title="4 stars">&#9733;</label>
+
+            <input type="radio" id="star3" name="rating" value="3">
+            <label for="star3" title="3 stars">&#9733;</label>
+
+            <input type="radio" id="star2" name="rating" value="2">
+            <label for="star2" title="2 stars">&#9733;</label>
+
+            <input type="radio" id="star1" name="rating" value="1">
+            <label for="star1" title="1 star">&#9733;</label>
+        </div>
+   
+        <div>
+            <button type="submit">Submit Review</button>
+        </div>
+    </form>
+</div>
+
+{% endblock body %}

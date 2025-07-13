@@ -1,0 +1,146 @@
+{% extends "blog/index.html" %}
+{% block title %}
+    My Profile
+{% endblock title %}
+
+{% block body %}
+{% load static %}
+<style>
+/* Style1.css */
+body {
+    background-color: #faf0e6; /* Light beige background */
+}
+
+.blog-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.blog-box {
+    border: 3px solid #ddd; /* Light gray border */
+    border-radius: 20px;
+    background-color: #fff; /* White background for blog boxes */
+    padding: 15px;
+    margin: 15px;
+    width: 95%;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: box-shadow 0.1s;
+    color: #8b4513; /* Rich brown text */
+}
+
+.blog-box:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.blog-meta {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.blog-meta span {
+    margin-right: 40px;
+}
+
+.blog-detail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd; /* Light gray border */
+    background-color: #fff; /* White background */
+}
+
+.blog-detail h1 {
+    margin-bottom: 20px;
+    color: #8b4513; /* Rich brown text */
+}
+
+.blog-content {
+    margin-top: 20px;
+    line-height: 1.6;
+}
+
+.blog-details {
+    display: flex;
+    text-align: center;
+    background-color: #e6f2e6; /* Light green background for details */
+    padding: 8px;
+    margin-right: 5%;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #8b4513; /* Rich brown text */
+}
+
+#blog-action {
+    background-color: #8b4513; /* Rich brown */
+    color: #fff; /* White text */
+    border: 3px solid #8b4513; /* Rich brown border */
+}
+
+#blog-action:hover {
+    background-color: #5a2d0c; /* Darker brown */
+    border-color: #5a2d0c; /* Darker brown border */
+}
+
+form.blog-search {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.blog {
+    display: flex;
+    background-color: #e6f2e6; /* Light green background */
+    width: 40%;
+}
+
+.search-input {
+    padding: 10px;
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 5px;
+}
+
+.search-btn {
+    padding: 10px;
+    background-color: #ffcc33; /* Bright golden yellow */
+    color: #8b4513; /* Rich brown text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-btn:hover {
+    background-color: #e6b800; /* Deeper yellow on hover */
+}
+
+button:hover {
+    background-color: #e6f2e6; /* Light green background on hover */
+}
+</style>
+
+<div class="blogs"> 
+    <h1>My Blogs</h1>
+    <form class="blog-search" method="GET" action="/myprofile">
+        <div class="blog">
+            <input class="search-input" type="text" name="search" id="exampleFormControlInput1" placeholder="Enter Blog Title">
+            <button class="search-btn" type="submit">Search</button>
+        </div>
+    </form>
+    {% for blog in blogs %}
+    <div class="blog-box" onclick="location.href='/my-detailed-blog/{{blog.id}}'">
+        <h2>{{ blog.title }}</h2>
+        <p>{{ blog.content|truncatewords:50|linebreaksbr }}</p>
+        <div class="blog-meta">
+            <span class="blog-details">Rating: ★★★★☆</span>
+            <span class="blog-details">Views: {{ blog.views }}</span>
+            <span class="blog-details">Date: {{ blog.created_at|date:"F d, Y H:i" }}</span>
+            <span class="blog-details">Last Updated on: {{ blog.updated_at|date:"F d, Y H:i" }}</span>
+            <a href="/delete-blog/{{blog.id}}" class="blog-details" id="blog-action">Delete</a>
+            <!-- <a href="" class="blog-details" id="blog-action">Update</a> -->
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock body %}

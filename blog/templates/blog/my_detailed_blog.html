@@ -1,0 +1,87 @@
+{% extends "blog/index.html" %}
+
+{% block body %}
+
+<style>
+.blog-container {
+    max-width: 80%;
+    width: 70%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: #faf0e6; /* Light beige background */
+    height: 100%;
+}
+
+.blog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    font-size: 20px;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #ffcc33; /* Bright golden yellow */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #e6b800; /* Deeper yellow on hover */
+}
+
+.blog-header h1 {
+    flex-grow: 1;
+    margin-left: 20px;
+    font-size: 24px;
+    color: #8b4513; /* Rich brown text color */
+}
+
+.blog-content {
+    line-height: 1.6;
+    font-size: 18px;
+    color: #8b4513; /* Rich brown text color */
+    margin-bottom: 20px;
+}
+
+.blog-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.update-button {
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #8b4513; /* Rich brown */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.update-button:hover {
+    background-color: #5a2d0c; /* Darker brown on hover */
+}
+
+</style>
+
+<div class="blog-container">
+    <div class="blog-header">
+        <button class="back-button" onclick="window.location.href='/myprofile'">←</button>
+        <h1>{{ blog.title }}</h1>
+    </div>
+    <div class="blog-content">
+        <p>{{ blog.content|linebreaksbr }}</p>
+    </div>
+    <div class="blog-footer">
+        <button class="update-button" onclick="window.location.href='/update-blog/{{blog.id}}'">Update</button>
+    </div>
+</div>
+
+{% endblock body %}

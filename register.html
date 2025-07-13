@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Page</title>
+<link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
+<!-- Ensure that the path to your CSS file is correct -->
+<style>
+    /* Inline CSS for additional styling */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #faf0e6; /* Light beige background */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .registration-container {
+        background-color: #fff; /* White background for the container */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd; /* Light gray border */
+        width: 40%;
+    }
+
+    .registration-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #8b4513; /* Rich brown text color */
+    }
+
+    .registration-form input[type="text"],
+    .registration-form input[type="password"],
+    .registration-form input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd; /* Light gray border */
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .registration-form input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #ffcc33; /* Bright, golden yellow */
+        color: #8b4513; /* Rich brown text color */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .registration-form input[type="submit"]:hover {
+        background-color: #e6b800; /* Deeper yellow */
+        color: #fff; /* White text color */
+    }
+
+    .message {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .message-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    .message-error {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+
+    .message-info {
+        color: #0c5460;
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+    }
+
+    a {
+        color: #8b4513; /* Rich brown color */
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+<div class="registration-container">
+    <h2>Registration</h2>
+    <form class="registration-form" method="post">
+        {% csrf_token %}
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {% if message.tags %}message-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <input type="text" name="first_name" placeholder="First Name" required>
+        <input type="text" name="last_name" placeholder="Last Name" required>
+        <input type="email" name="email_id" placeholder="Email Address" required>
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="submit" value="Register">
+    </form>
+    <p><a href="/login/">Already Have an Account</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>
+        {% block title %} Profile - Blogger.com {% endblock %}
+    </title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/create_blog.css' %}">
+    <link rel="stylesheet" href="{% static 'css/myprofile.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* Existing styles */
+        body {
+            background-color: #faf0e6;
+            color: #8b4513;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .profile-card {
+            position: fixed;
+            top: 120px;
+            left: 20px;
+            width: 260px;
+            z-index: 999;
+            background-color: #ffffff;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        #profile-img {
+            border: 2px solid #ffcc33;
+            height: 20vh;
+            border-radius: 1000px;
+            padding: 0px;
+            margin-top: 20px;
+        }
+
+        .main_body {
+            margin-top: 160px;
+            margin-left: 280px;
+            padding: 20px;
+        }
+
+        .profile-info {
+            padding: 10px;
+        }
+
+        .profile-info h2.name {
+            font-size: 20px;
+        }
+
+        .profile-info p {
+            margin: 10px 0;
+        }
+
+        .profile-info a {
+            color: #ffcc33;
+            text-decoration: none;
+        }
+
+        .menu-btn {
+            display: block;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #ffcc33;
+            color: #8b4513;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .menu-btn:hover {
+            background-color: #e6b800;
+        }
+
+        .profile-card {
+            position: fixed;
+            top: 120px;
+            left: 20px;
+            width: 260px;
+            z-index: 999;
+            background-color: #ffffff;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="data-container">
+        <span class="btn">Blogger</span>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/contact">Contact Us</a>
+
+        {% if request.user.is_authenticated %}
+        <a class="logout" href="/logout/" style="float: right; margin-right: 50px; height: 35px;">Logout</a>
+        {% endif %}
+    </nav>
+
+    <div class="main_body">
+        <div class="container">
+            <div class="profile-card">
+                <a id="profile-img-a" href="">
+                    <img id="profile-img" src="{% static 'images/E:/Blogger/public/static/images/avtar3.jpeg' %}" alt="Blogger Image">
+                </a>
+                <div class="profile-info">
+                    <h2 class="name">{{ request.user.first_name }} {{ request.user.last_name }}</h2>
+                    <div class="rating">
+                        <span>Rating: </span>
+                        <span class="stars">★★★★☆</span>
+                    </div>
+                    <p class="email">{{ request.user.email }}</p>
+                    <p>Number of Blogs : {{ blogs_count }}</p>
+                    <br>
+                    <a href="/create-blog" class="menu-btn">Create Blog</a>
+                    <a href="/myprofile" class="menu-btn">My Blogs</a>
+                </div>
+            </div>
+
+            <div class="blogs">
+                <h1>My Blogs</h1>
+                <div class="blog-list">
+                    {% for blog in blogs %}
+                    <div class="blog-box" onclick="location.href='/all-detailed-blog/{{ blog.id }}'">
+                        <h2>{{ blog.title }}</h2>
+                        <p>{{ blog.content|truncatewords:50 }}</p>
+                        <div class="blog-meta">
+                            <span class="blog-details">Rating: ★★★★☆</span>
+                            <span class="blog-details">Views: {{ blog.views }}</span>
+                            <span class="blog-details">Date: {{ blog.created_at|date:"F d, Y H:i" }}</span>
+                            <span class="blog-details">Last Updated on: {{ blog.updated_at|date:"F d, Y H:i" }}</span>
+                            <a href="/other-blogger/{{ blog.author.user.pk }}/{{ blog.id }}" class="blog-details" id="blog-action">By: {{ blog.author.user.first_name }} {{ blog.author.user.last_name }}</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

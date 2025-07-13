@@ -1,0 +1,29 @@
+{% extends "blog/index.html" %}
+
+{% block title %}
+Create a New Blog
+{% endblock title %}
+
+{% block body %}
+
+<main>
+    <h1>Create a New Blog</h1>
+
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" value="{{ form.title.value }}" required><br><br>
+
+        <label for="content">Content:</label><br>
+        <textarea id="content" name="content" rows="10" cols="50" required>{{ form.content.value }}</textarea><br><br>
+
+        <label for="image">Upload Image:</label><br>
+        <input type="file" id="image" name="image" accept="image/*"><br><br>
+
+        <input type="submit" value="Create Blog">
+    </form>
+
+</main>
+
+{% endblock body %}
